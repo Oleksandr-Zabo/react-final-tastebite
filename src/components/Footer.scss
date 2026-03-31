@@ -1,0 +1,240 @@
+@import '../assets/data/basics.scss';
+
+.site-footer {
+	background: $color-gray-200;
+	color: $color-gray;
+	font-family: $font-body;
+	padding: 60px 0 24px;
+
+	/* Desktop (default) => show static section headings, hide dropdown chevrons */
+	.section-header {
+		.section-button { background: transparent; border: none; padding: 0; cursor: default; display: flex; align-items: center; }
+		.section-title { color: $color-black; font-weight: 600; }
+		.chev { display: none; }
+	}
+
+	/* Ensure section content always visible on desktop regardless of expanded/collapsed classes */
+	.section-content { display: block; }
+
+	.footer-inner {
+		max-width: $content-width;
+		margin: 0 auto;
+		display: flex;
+		gap: 32px;
+		align-items: flex-start;
+		justify-content: space-between;
+		padding-bottom: 40px;
+		border-bottom: 1px solid $color-gray-100;
+
+		@media (max-width: 1150px) {
+			padding-left: 20px;
+			padding-right: 20px;
+		}
+	}
+
+	.footer-col {
+		&.footer-brand {
+			flex: 1 1 40%;
+
+			.footer-logo {
+				width: 160px;
+				height: auto;
+				display: block;
+				margin-bottom: 24px;
+			}
+
+			.footer-quote {
+				max-width: 420px;
+				color: $color-gray;
+				line-height: 1.6;
+				font-size: 16px;
+			}
+		}
+
+		&.footer-nav {
+			flex: 0 0 160px;
+
+			.footer-title {
+				color: $color-black;
+				font-weight: 600;
+				margin-bottom: 8px;
+			}
+
+			ul {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+
+				li { margin: 8px 0; }
+
+				/* make anchors block-level so all lists align on the same vertical line */
+				a { 
+					color: $color-gray; 
+					text-decoration: none; 
+					display: block; 
+
+					&:hover, &.active {
+						color: $color-primary;
+					}
+				}
+			}
+		}
+
+		&.footer-social {
+			flex: 0 0 160px; /* match nav column width so lists line up vertically */
+
+			// Follow column: text-only links (no icons)
+			.follow-list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+
+				li { margin: 8px 0; }
+
+				/* Follow should use same color as legal links and align like other lists */
+				a { 
+					color: $color-gray; 
+					text-decoration: none; 
+					display: block; 
+
+					&:hover, &.active {
+						color: $color-primary;
+					}
+				}
+			}
+		}
+	}
+
+	.footer-bottom {
+		margin-top: 18px;
+
+		.footer-bottom-inner {
+			display: flex;
+			align-items: center; /* vertical center with copyright */
+			justify-content: space-between;
+			padding: 18px 0;
+		}
+
+		.copyright { color: $color-gray; }
+
+		.social-small {
+			display:flex; gap:24px; align-items:center;
+
+			a img { width:20px; height:20px; display:block; }
+
+			/* Make icons appear the same gray as text */
+			a img {
+				filter: grayscale(100%) brightness(0.6) opacity(0.9);
+				transition: filter .15s ease, opacity .15s ease;
+			}
+			a:hover img { filter: grayscale(100%) brightness(0.9) opacity(1); }
+		}
+	}
+
+	// responsive
+	@media (max-width: 800px) {
+		/* Mobile: stack columns and format as touch-friendly accordion-like rows */
+		.footer-inner {
+			flex-direction: column;
+			gap: 0;
+			padding-bottom: 0;
+		}
+
+		.footer-col {
+			width: 100%;
+			flex: 0 0 auto !important; /* Force reset flex basis to auto so height is not fixed */
+			padding: 0; /* move padding to header/content so collapsed state has no extra space */
+			margin-bottom: 20px;
+			border-bottom: none;
+			min-height: 0;
+		}
+
+		/* Brand stays on top with full quote width */
+		.footer-col.footer-brand {
+			order: 0;
+			.footer-logo { width: 140px; }
+			.footer-quote { max-width: 100%; margin-top: 8px; }
+		}
+
+		/* Make headings look like toggle rows with a right chevron */
+		/* header button used by JSX for mobile toggles */
+		.section-button { 
+			background: transparent; 
+			border: none; 
+			padding: 15px 0; 
+			cursor: pointer; 
+			display: flex; 
+			justify-content: space-between; 
+			align-items: center; 
+			width: 100%;
+		}
+		
+		.section-title { color: $color-black; font-size: 18px; font-weight: 600; }
+
+		/* add header border so collapsed sections still show separator */
+		.section-header { border-bottom: 1px solid $color-gray-100; padding: 0; }
+
+		/* Lists: larger touch area and consistent left padding */
+		.footer-col ul,
+		.footer-col .follow-list {
+			padding: 0;
+			margin: 10px 0 0 0;
+		}
+
+		/* accordion behavior: hide collapsed sections on mobile */
+		.section-content.collapsed { display: none; }
+		.section-content.expanded { display: block; padding: 0 0 18px; }
+
+		/* chevron img rotation when open */
+		.chev { 
+			display: block; 
+			width: 20px; 
+			height: 20px; 
+			transform: rotate(0deg); 
+			transition: transform .2s ease; 
+			margin-left: auto; /* Ensure it stays on the right */
+		}
+		.chev.open { transform: rotate(180deg); }
+
+		.footer-col ul li,
+		.footer-col .follow-list li {
+			margin: 14px 0;
+		}
+
+		.footer-col ul li a,
+		.footer-col .follow-list li a {
+			display: block;
+			padding: 8px 0;
+			color: $color-gray;
+		}
+
+		/* Social icons area centered and spaced for mobile */
+		.footer-bottom-inner {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start !important;
+			gap: 16px;
+			padding: 20px 20px;
+			text-align: left;
+		}
+
+		.social-small { 
+			order: 1; 
+			justify-content: flex-start;
+			margin-left: 14px;
+			width: auto;
+		}
+		
+		.copyright { 
+			order: 2; 
+			margin-left: 14px;
+			color: $color-gray; 
+			text-align: left;
+			width: auto;
+		}
+	}
+}
+
+// Optional container helper if you use one elsewhere
+.container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+

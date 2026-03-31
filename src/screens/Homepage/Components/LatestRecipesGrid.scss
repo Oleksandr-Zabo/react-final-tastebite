@@ -1,0 +1,122 @@
+@import '../../../assets/data/basics.scss';
+
+.latest-recipes-grid {
+  margin-bottom: 60px;
+}
+
+.latest-recipes-grid__wrap {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px; // Match design gap
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.recipe-card.small {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+
+  &:hover {
+    .recipe-card__title {
+      color: $color-primary;
+    }
+    .recipe-card__image {
+      transform: scale(1.05);
+    }
+  }
+
+  .recipe-card__image-wrap {
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    height: 190px; // Fixed height as requested
+    width: 100%;
+    position: relative;
+
+    .card-like-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: white;
+        border: none;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: transform 0.2s;
+        z-index: 2;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        img {
+            width: 16px;
+            height: 16px;
+            display: block;
+        }
+    }
+  }
+
+  .recipe-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+
+  .recipe-card__body {
+    padding: 0; // Remove padding
+  }
+
+  .recipe-card__title {
+    font-family: $font-body;
+    font-size: 16px;
+    font-weight: 600;
+    color: $color-black;
+    line-height: 1.4;
+    margin: 0;
+  }
+}
+
+.latest-recipes-grid__load {
+  text-align: center;
+  margin-top: 40px;
+
+  button {
+    padding: 12px 32px;
+    border: 2px solid $color-black; // Outline style
+    background: transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: $color-black;
+      color: #fff;
+    }
+  }
+}
